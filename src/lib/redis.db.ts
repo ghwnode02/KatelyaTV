@@ -435,6 +435,7 @@ function getRedisClient(): RedisClientType {
 
     // 获取 Redis 密码
     const redisPassword = process.env.REDIS_PASSWORD;
+    const redisDatabase = parseInt(process.env.REDIS_DATABASE || '0', 10);
 
     // 创建客户端，配置重连策略
     const clientConfig: any = {
@@ -453,6 +454,8 @@ function getRedisClient(): RedisClientType {
         // 设置no delay，减少延迟
         noDelay: true,
       },
+      // 添加数据库配置
+      database: redisDatabase,
       // 添加其他配置
       pingInterval: 30000, // 30秒ping一次，保持连接活跃
     };
